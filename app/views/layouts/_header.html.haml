@@ -1,0 +1,10 @@
+.header
+  .header-container
+    .logo
+      = image_tag 'logo.png'
+    .menu
+      - if current_user
+        = link_to 'Log out', logout_users_path
+      - else
+        = link_to 'Sign in', login_users_path
+        = link_to 'Sign up', new_user_path

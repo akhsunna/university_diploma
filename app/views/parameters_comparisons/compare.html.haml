@@ -1,0 +1,64 @@
+.comparison
+  .in-words
+    %span= @comparison.parameter_a.name
+    %span#compare
+    %span= @comparison.parameter_b.name
+
+  = form_tag confirm_project_parameters_comparison_path(id: @comparison.id) do
+    .comparison-slider
+      = hidden_field_tag :project_id, @project.id
+      %input.slider#myRange{type: 'range', min: '-9', max: '9', value: @comparison.simplified_value, name: 'simplified_value'}
+
+    .submit-row
+      = link_to "Skip '#{@comparison.parameter_a.name}'", skip_project_parameters_comparison_path(project_id: @project.id, id: @comparison.parameter_a_id)
+      .column
+        = submit_tag 'Confirm', class: 'button'
+        = link_to 'Skip whole comparison process', skip_project_parameters_comparison_path(project_id: @project.id, id: :all)
+      = link_to "Skip '#{@comparison.parameter_b.name}'", skip_project_parameters_comparison_path(project_id: @project.id, id: @comparison.parameter_b_id)
+
+
+%script
+  :plain
+    console.log('0000000000000000000');
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("compare");
+    output.innerHTML = slider.value;
+    var labels = ['absolutely less important than', 'strongly less important than', 'less important than', 'slightly less important than', 'equally important', 'slightly more important than', 'more important than', 'strongly more important than', 'absolutely more important than'];
+    slider.value = 0;
+    sliderInputChange();
+    slider.oninput = sliderInputChange;
+    function sliderInputChange() {
+    var val = slider.value;
+    var unit = 3;
+    var optionNum;
+
+    if (val <= -9) {
+    slider.value = -9;
+    optionNum = 1;
+    } else if (val <= -7) {
+    slider.value = -7;
+    optionNum = 2;
+    } else if (val <= -5) {
+    slider.value = -5;
+    optionNum = 3;
+    } else if (val <= -3) {
+    slider.value = -3;
+    optionNum = 4;
+    } else if (val < 3) {
+    slider.value = 0;
+    optionNum = 5;
+    } else if (val < 5) {
+    slider.value = 3;
+    optionNum = 6;
+    } else if (val < 7) {
+    slider.value = 5;
+    optionNum = 7;
+    } else if (val < 9) {
+    slider.value = 7;
+    optionNum = 8;
+    } else {
+    slider.value = 9;
+    optionNum = 9;
+    }
+    output.innerHTML = labels[optionNum - 1];
+    }

@@ -1,0 +1,12 @@
+%h1 Sign In
+
+-if params[:invalid]
+  .alert.alert-danger
+    Invalid username or password!
+
+= form_for @user, url: create_session_users_path do |f|
+  .text-field
+    = f.text_field :username, placeholder: 'Username'
+  .text-field
+    = f.password_field :password, placeholder: 'Password'
+  = f.submit 'Submit', class: 'button'
