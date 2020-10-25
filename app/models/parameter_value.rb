@@ -1,3 +1,5 @@
+
+# Possible values
 class ParameterValue < ApplicationRecord
   belongs_to :parameter
 

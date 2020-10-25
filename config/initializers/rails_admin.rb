@@ -38,4 +38,28 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'ExpertRequest' do
+    edit do
+      fields :expert_name, :expert_weight, :methodology
+    end
+    show do
+      field :path
+      field :status
+      field :methodology
+      field :expert_weight
+      field :expert_name
+    end
+    list do
+      field :id
+      field :path do
+        pretty_value do
+          "<a href=\"#{value}\" target=\"_blank\">#{value}</a>".html_safe
+        end
+      end
+      field :status
+      field :methodology
+      field :expert_name
+    end
+  end
 end

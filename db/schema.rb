@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_13_152705) do
+ActiveRecord::Schema.define(version: 2020_10_25_143813) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_152705) do
     t.bigint "methodology_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status", default: 0
     t.index ["methodology_id"], name: "index_expert_requests_on_methodology_id"
   end
 
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_152705) do
     t.bigint "parameter_value_id"
     t.bigint "methodology_id"
     t.bigint "expert_request_id"
+    t.integer "status", default: 0
     t.integer "score"
     t.integer "expert_weight"
     t.index ["expert_request_id"], name: "index_parameter_methodology_expert_scores_on_expert_request_id"
@@ -43,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_09_13_152705) do
   create_table "parameter_methodology_total_scores", force: :cascade do |t|
     t.bigint "parameter_value_id"
     t.bigint "methodology_id"
-    t.integer "score"
+    t.decimal "score"
     t.index ["methodology_id"], name: "index_parameter_methodology_total_scores_on_methodology_id"
     t.index ["parameter_value_id"], name: "index_parameter_methodology_total_scores_on_parameter_value_id"
   end

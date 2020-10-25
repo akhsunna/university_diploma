@@ -22,4 +22,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :expert_requests, only: %i[show update] do
+
+  end
 end

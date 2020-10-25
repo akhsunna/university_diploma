@@ -5,6 +5,8 @@ class CreateParameterMethodologyExpertScores < ActiveRecord::Migration[6.0]
       t.belongs_to :methodology
       t.belongs_to :expert_request
 
+      t.integer :status, default: 0
+
       t.integer :score
       t.integer :expert_weight
     end

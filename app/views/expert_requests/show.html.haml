@@ -1,0 +1,18 @@
+%h1= "Estimation for #{@request.methodology.name}"
+
+.progress
+  %progress#progress{max: '100', value: @request.progress_percentage}
+  %span= "#{@request.progress_percentage}%"
+
+%h2
+  Parameter:
+  = @parameter.name
+
+= form_tag expert_request_path(@request), method: :patch, style: 'width: 100%;' do
+  - for score_record in @scores
+    .input-row
+      = fields_for "score_records[#{score_record.id}]", score_record do |f|
+        .field-name= score_record.parameter_value.value.titleize
+        .text-field
+          = f.number_field :score, placeholder: 'Score', required: true, min: 0, max: 10
+  = submit_tag 'Submit', class: 'button'
