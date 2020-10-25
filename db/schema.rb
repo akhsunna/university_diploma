@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_143813) do
+ActiveRecord::Schema.define(version: 2020_10_25_201800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,16 @@ ActiveRecord::Schema.define(version: 2020_10_25_143813) do
     t.index ["parameter_a_id"], name: "index_parameters_comparisons_on_parameter_a_id"
     t.index ["parameter_b_id"], name: "index_parameters_comparisons_on_parameter_b_id"
     t.index ["project_id"], name: "index_parameters_comparisons_on_project_id"
+  end
+
+  create_table "project_parameter_values", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "parameter_id"
+    t.bigint "parameter_value_id"
+    t.integer "status", default: 0
+    t.index ["parameter_id"], name: "index_project_parameter_values_on_parameter_id"
+    t.index ["parameter_value_id"], name: "index_project_parameter_values_on_parameter_value_id"
+    t.index ["project_id"], name: "index_project_parameter_values_on_project_id"
   end
 
   create_table "projects", force: :cascade do |t|

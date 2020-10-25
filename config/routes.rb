@@ -26,4 +26,10 @@ Rails.application.routes.draw do
   resources :expert_requests, only: %i[show update] do
 
   end
+
+  resources :project_parameters, only: %i[show update] do
+    member do
+      post :skip
+    end
+  end
 end

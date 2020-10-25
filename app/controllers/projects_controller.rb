@@ -14,27 +14,29 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params.merge(user: current_user))
     @project.save!
 
+    # TODO: move it after the values are set
     # creates records for ahp
-    Parameter.find_each do |param_a|
-      Parameter.find_each do |param_b|
-        value, inversed =
-          if param_a.id == param_b.id
-            [1, false]
-          else
-            ParametersComparison.default_for(param_a.id, param_b.id)
-          end
-        ParametersComparison.create(
-          parameter_a: param_a,
-          parameter_b: param_b,
-          project: @project,
-          value: value,
-          inversed: inversed,
-          status: param_a.id == param_b.id ? :confirmed : :not_set
-        )
-      end
-    end
+    # Parameter.find_each do |param_a|
+    #   Parameter.find_each do |param_b|
+    #     value, inversed =
+    #       if param_a.id == param_b.id
+    #         [1, false]
+    #       else
+    #         ParametersComparison.default_for(param_a.id, param_b.id)
+    #       end
+    #     ParametersComparison.create(
+    #       parameter_a: param_a,
+    #       parameter_b: param_b,
+    #       project: @project,
+    #       value: value,
+    #       inversed: inversed,
+    #       status: param_a.id == param_b.id ? :confirmed : :not_set
+    #     )
+    #   end
+    # end
+    # redirect_to compare_project_parameters_comparisons_path(project_id: @project.id)
 
-    redirect_to compare_project_parameters_comparisons_path(project_id: @project.id)
+    redirect_to project_parameter_path(@project.id)
   end
 
   private

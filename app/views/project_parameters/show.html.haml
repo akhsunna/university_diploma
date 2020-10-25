@@ -1,0 +1,23 @@
+.questionnaire
+
+  %h1= @project.name
+
+  .progress
+    %progress#progress{max: '100', value: @project.values_progress_percentage}
+    %span= "#{@project.values_progress_percentage}%"
+
+  %h2
+    Parameter:
+    = @parameter.name
+
+  = form_for @project_parameter_value, url: project_parameter_path(@project_parameter_value), style: 'width: 100%;' do |f|
+    - @parameter.possible_values.each do |possible_value|
+
+      .input-row{style: 'margin: 15px 0;'}
+        %label.radio-container
+          = possible_value.value
+          = f.radio_button :parameter_value_id, possible_value.id
+          %span.checkmark
+
+    = f.submit 'Submit', class: 'button'
+    = link_to 'Skip', skip_project_parameter_path(@project_parameter_value), method: :post

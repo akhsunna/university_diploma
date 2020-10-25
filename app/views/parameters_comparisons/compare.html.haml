@@ -16,7 +16,6 @@
         = link_to 'Skip whole comparison process', skip_project_parameters_comparison_path(project_id: @project.id, id: :all)
       = link_to "Skip '#{@comparison.parameter_b.name}'", skip_project_parameters_comparison_path(project_id: @project.id, id: @comparison.parameter_b_id)
 
-
 %script
   :plain
     console.log('0000000000000000000');

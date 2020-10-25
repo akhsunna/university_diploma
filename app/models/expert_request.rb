@@ -31,7 +31,7 @@ class ExpertRequest < ApplicationRecord
   end
 
   def progress_percentage
-    (100 - (scores.not_set.count / scores.count.to_f) * 100.0).round(1)
+    @progress_percentage ||= (100 - (scores.not_set.count / scores.count.to_f) * 100.0).round(1)
   end
 
   def path
