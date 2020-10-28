@@ -1,0 +1,36 @@
+%h1= "\"#{@project.name}\" Results"
+
+- methodologies = Methodology.all
+
+.project-results
+  .result-methods
+    - methodologies.each_with_index do |method, i|
+      = link_to '', class: i == 1 ? 'method-item active' : 'method-item' do
+        = "#{i + 1}. "
+        = method.name
+
+
+  .result-detailed
+    .method-title
+      %h2= methodologies[1].name
+      %h2 8.2
+
+    %table.projects-list
+      %thead
+        %tr
+          %th
+            Parameter
+          %th
+            Value
+          %th
+            Score
+      %tbody
+        - Parameter.all.each do |parameter|
+          - s = rand(100) / 10.0
+          %tr{class: s > 8 ? 'green' : (s > 4 ? 'yellow' : (s > 1.5 ? 'red' : 'super-red'))}
+            %td
+              = parameter.name
+            %td
+              = parameter.possible_values.sample.value
+            %td
+              = s
