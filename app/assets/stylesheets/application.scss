@@ -171,19 +171,20 @@ table.projects-list {
   }
 
   .project-status {
-    padding: 10px 5px;
+    padding: 10px 15px;
     border-radius: 20px;
-    width: 170px;
+    //width: 170px;
     display: inline-block;
     text-align: center;
+    background: #dddddd;
 
     &.created {
       background: #f98d88;
       color: #fff;
     }
 
-    &.in_progress {
-      background: #f0d993;
+    &.criteria_comparing_finished, &.criteria_comparing_in_progress {
+      background: #ffd556;
       color: #fff;
     }
 
