@@ -12,6 +12,7 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :parameters_comparisons, dependent: :destroy
   has_many :parameter_values, dependent: :destroy, class_name: 'ProjectParameterValue'
+  has_many :parameters, through: :parameter_values
 
   validates :name, presence: true
 

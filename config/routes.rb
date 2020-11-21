@@ -14,10 +14,11 @@ Rails.application.routes.draw do
   resources :projects, only: %i[new create index show] do
     resources :parameters_comparisons, only: [] do
       collection do
+        get :start
         get :compare
+        post :skip
       end
       member do
-        post :skip
         post :confirm
       end
     end

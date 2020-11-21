@@ -35,7 +35,7 @@ class ProjectParametersController < ApplicationController
   def redirect_after_save
     if @project.parameter_values.not_set.blank?
       @project.questionnaire_finished!
-      redirect_to root_path
+      redirect_to start_project_parameters_comparisons_path(project_id: @project.id)
     else
       @project.questionnaire_in_progress!
       redirect_to project_parameter_path(@project)

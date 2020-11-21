@@ -1,19 +1,19 @@
 %h1= "\"#{@project.name}\" Results"
 
-- methodologies = Methodology.all
+- methodologies = Methodology.order('name')
 
 .project-results
   .result-methods
     - methodologies.each_with_index do |method, i|
-      = link_to '', class: i == 1 ? 'method-item active' : 'method-item' do
-        = "#{i + 1}. "
+      = link_to '', class: i == 3 ? 'method-item active' : 'method-item' do
+        -# = "#{i + 1}. "
         = method.name
 
 
   .result-detailed
     .method-title
-      %h2= methodologies[1].name
-      %h2 8.2
+      %h2= methodologies[3].name
+      %h2 5.1
 
     %table.projects-list
       %thead
@@ -25,8 +25,8 @@
           %th
             Score
       %tbody
-        - Parameter.all.each do |parameter|
-          - s = rand(100) / 10.0
+        - Parameter.order("RANDOM()").all.each do |parameter|
+          - s = parameter.default_weight / 10.0
           %tr{class: s > 8 ? 'green' : (s > 4 ? 'yellow' : (s > 1.5 ? 'red' : 'super-red'))}
             %td
               = parameter.name

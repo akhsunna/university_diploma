@@ -10,11 +10,8 @@
       %input.slider#myRange{type: 'range', min: '-9', max: '9', value: @comparison.simplified_value, name: 'simplified_value'}
 
     .submit-row
-      = link_to "Skip '#{@comparison.parameter_a.name}'", skip_project_parameters_comparison_path(project_id: @project.id, id: @comparison.parameter_a_id)
-      .column
-        = submit_tag 'Confirm', class: 'button'
-        = link_to 'Skip whole comparison process', skip_project_parameters_comparison_path(project_id: @project.id, id: :all)
-      = link_to "Skip '#{@comparison.parameter_b.name}'", skip_project_parameters_comparison_path(project_id: @project.id, id: @comparison.parameter_b_id)
+      = link_to 'Cancel comparison process (use default)', skip_project_parameters_comparisons_path(project_id: @project.id), method: :post, class: 'link-as-button'
+      = submit_tag 'Confirm', class: 'button'
 
 %script
   :plain

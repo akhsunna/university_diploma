@@ -1,6 +1,6 @@
 .header
   .header-container
-    .logo
+    = link_to root_path, class: 'logo' do
       = image_tag 'logo.png'
     .menu
       - if current_user
