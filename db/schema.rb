@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_201800) do
+ActiveRecord::Schema.define(version: 2020_11_21_143340) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2020_10_25_201800) do
   create_table "parameter_values", force: :cascade do |t|
     t.bigint "parameter_id"
     t.string "value"
+    t.integer "default_weight"
     t.index ["parameter_id"], name: "index_parameter_values_on_parameter_id"
   end
 
