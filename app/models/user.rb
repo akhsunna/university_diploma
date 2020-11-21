@@ -10,4 +10,8 @@ class User < ApplicationRecord
 
   validates :username, :role, presence: true
   validates :username, uniqueness: true
+
+  def name
+    username
+  end
 end

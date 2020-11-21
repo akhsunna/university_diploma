@@ -42,7 +42,17 @@ class ExpertRequest < ApplicationRecord
 
   def create_records_for_scores
     Parameter.find_each do |parameter|
+      p 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP'
+      p 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP'
+      p 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP'
+      p 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP'
+      p parameter
       parameter.possible_values.find_each do |value|
+        p 'VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVv'
+        p 'VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVv'
+        p 'VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVv'
+        p 'VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVv'
+        p value
         self.scores.create(expert_weight: expert_weight, parameter_value: value, methodology: methodology)
       end
     end

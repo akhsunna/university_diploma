@@ -1,6 +1,7 @@
 class ParameterMethodologyTotalScore < ApplicationRecord
   belongs_to :parameter_value
   belongs_to :methodology
+  has_one :parameter, through: :parameter_value
 
   validates :score, presence: true
   validates :score, numericality: {

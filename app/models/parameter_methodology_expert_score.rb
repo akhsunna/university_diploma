@@ -8,6 +8,7 @@ class ParameterMethodologyExpertScore < ApplicationRecord
   belongs_to :parameter_value
   belongs_to :methodology
   belongs_to :expert_request
+  has_one :parameter, through: :parameter_value
 
   scope :for_parameter, ->(parameter_id) { joins(:parameter_value).where(parameter_values: { parameter_id: parameter_id }) }
 
