@@ -30,7 +30,7 @@ class ParametersComparisonsController < ApplicationController
 
   def confirm
     @comparison.update!(comparison_params.merge(status: :confirmed))
-    @comparison.inversed_record.update!(status: :confirmed, simplified_value: @comparison)
+    @comparison.set_value_for_inversed!
 
     @project.criteria_comparing_in_progress!
 

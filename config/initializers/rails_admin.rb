@@ -177,6 +177,9 @@ RailsAdmin.config do |config|
     edit do
       fields :project, :parameter_a, :parameter_b, :value, :inversed, :status
     end
+    list do
+      fields :id, :parameter_a, :parameter_b, :value, :inversed, :status
+    end
   end
 
 end

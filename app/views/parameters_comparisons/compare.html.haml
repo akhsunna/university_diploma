@@ -1,8 +1,8 @@
 .comparison
   .in-words
-    %span= @comparison.parameter_a.name
-    %span#compare
     %span= @comparison.parameter_b.name
+    %span#compare
+    %span= @comparison.parameter_a.name
 
   = form_tag confirm_project_parameters_comparison_path(id: @comparison.id) do
     .comparison-slider
@@ -19,7 +19,7 @@
     var slider = document.getElementById("myRange");
     var output = document.getElementById("compare");
     output.innerHTML = slider.value;
-    var labels = ['absolutely less important than', 'strongly less important than', 'less important than', 'slightly less important than', 'equally important', 'slightly more important than', 'more important than', 'strongly more important than', 'absolutely more important than'];
+    var labels = ['absolutely more important than', 'strongly more important than', 'more important than', 'slightly more important than', 'equally important', 'slightly less important than', 'less important than', 'strongly less important than', 'absolutely less important than'];
     slider.value = 0;
     sliderInputChange();
     slider.oninput = sliderInputChange;

@@ -1,23 +1,17 @@
 module Ahp
   class CreateRecords
     def call(project)
-      parameters = project.confirmed_parameters
+      parameter_ids = project.confirmed_parameters.pluck(:id)
 
-      parameters.find_each do |param_a|
-        parameters.find_each do |param_b|
-          value, inversed =
-            if param_a.id == param_b.id
-              [1, false]
-            else
-              ParametersComparison.default_for(param_a.id, param_b.id)
-            end
+      parameter_ids.each do |param_a|
+        parameter_ids.each do |param_b|
           ParametersComparison.create(
-            parameter_a: param_a,
-            parameter_b: param_b,
+            parameter_a_id: param_a,
+            parameter_b_id: param_b,
             project: project,
-            value: value,
-            inversed: inversed,
-            status: param_a.id == param_b.id ? :confirmed : :not_set
+            value: 1,
+            inversed: param_a > param_b,
+            status: param_a == param_b ? :confirmed : :not_set
           )
         end
       end

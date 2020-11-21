@@ -14,21 +14,11 @@ class ParametersComparison < ApplicationRecord
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: 9
   }
+  validates :parameter_a_id, uniqueness: { scope: :parameter_b_id }
 
-  scope :default, -> { where(project_id: nil) }
   scope :for, ->(ida, idb) {
     where(parameter_a_id: ida, parameter_b_id: idb)
   }
-
-  def self.default_for(ida, idb)
-    if (same = default.for(ida, idb).first)
-      [same.value, false]
-    elsif (inversed = default.for(idb, ida).first)
-      [inversed.value, true]
-    else
-      [1, true]
-    end
-  end
 
   def simplified_value
     if value == 1
@@ -52,6 +42,14 @@ class ParametersComparison < ApplicationRecord
       self.value = val
       self.inversed = false
     end
+  end
+
+  def set_value_for_inversed!
+    inversed_record.update!(
+      status: :confirmed,
+      inversed: !inversed,
+      value: value
+    )
   end
 
   def inversed_record
