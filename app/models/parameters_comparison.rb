@@ -53,4 +53,11 @@ class ParametersComparison < ApplicationRecord
       self.inversed = false
     end
   end
+
+  def inversed_record
+    project.parameters_comparisons.find_by(
+      parameter_a: parameter_b,
+      parameter_b: parameter_a
+    )
+  end
 end

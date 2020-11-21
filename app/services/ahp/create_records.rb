@@ -1,8 +1,10 @@
-module Comparison
+module Ahp
   class CreateRecords
     def call(project)
-      Parameter.find_each do |param_a|
-        Parameter.find_each do |param_b|
+      parameters = project.confirmed_parameters
+
+      parameters.find_each do |param_a|
+        parameters.find_each do |param_b|
           value, inversed =
             if param_a.id == param_b.id
               [1, false]

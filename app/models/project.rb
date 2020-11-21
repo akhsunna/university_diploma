@@ -10,9 +10,23 @@ class Project < ApplicationRecord
   }
 
   belongs_to :user
+
   has_many :parameters_comparisons, dependent: :destroy
-  has_many :parameter_values, dependent: :destroy, class_name: 'ProjectParameterValue'
+
+  has_many :parameter_values,
+           dependent: :destroy,
+           class_name: 'ProjectParameterValue'
   has_many :parameters, through: :parameter_values
+
+  has_many :confirmed_parameter_values, -> { confirmed },
+           class_name: 'ProjectParameterValue'
+  has_many :confirmed_parameters,
+           through: :confirmed_parameter_values,
+           source: :parameter
+
+  has_many :methodology_scores,
+           class_name: 'ProjectMethodologyScore',
+           dependent: :destroy
 
   validates :name, presence: true
 

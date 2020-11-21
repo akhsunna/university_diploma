@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_143340) do
+ActiveRecord::Schema.define(version: 2020_11_21_212600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,11 +76,20 @@ ActiveRecord::Schema.define(version: 2020_11_21_143340) do
     t.index ["project_id"], name: "index_parameters_comparisons_on_project_id"
   end
 
+  create_table "project_methodology_scores", force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "methodology_id"
+    t.decimal "weighted_sum_score"
+    t.index ["methodology_id"], name: "index_project_methodology_scores_on_methodology_id"
+    t.index ["project_id"], name: "index_project_methodology_scores_on_project_id"
+  end
+
   create_table "project_parameter_values", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "parameter_id"
     t.bigint "parameter_value_id"
     t.integer "status", default: 0
+    t.decimal "weight"
     t.index ["parameter_id"], name: "index_project_parameter_values_on_parameter_id"
     t.index ["parameter_value_id"], name: "index_project_parameter_values_on_parameter_value_id"
     t.index ["project_id"], name: "index_project_parameter_values_on_project_id"

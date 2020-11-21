@@ -5,27 +5,35 @@ class ParametersComparisonsController < ApplicationController
 
   def compare
     if @project.questionnaire_finished?
-      Comparison::CreateRecords.new.call(@project)
+      Ahp::CreateRecords.new.call(@project)
       @project.criteria_comparing_in_progress!
     end
 
     @comparison = @project.next_for_compare
 
     unless @comparison
-      @project.criteria_comparing_finished!
+      Ahp::CalculateWeights.new.call(@project)
+
+      MethSelecting::ScoresByWeightedSum.new.call(@project)
+
       redirect_to project_path(@project.id)
     end
   end
 
   def skip
-    @project.parameters_comparisons.destroy_all
+    Ahp::SetDefaultWeights.new.call(@project)
+
+    MethSelecting::ScoresByWeightedSum.new.call(@project)
+
     redirect_to project_path(@project.id)
   end
 
   def confirm
     @comparison.update!(comparison_params.merge(status: :confirmed))
-    # TODO: set value for inversed
+    @comparison.inversed_record.update!(status: :confirmed, simplified_value: @comparison)
+
     @project.criteria_comparing_in_progress!
+
     redirect_to compare_project_parameters_comparisons_path(project_id: params[:project_id])
   end
 
