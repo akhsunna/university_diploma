@@ -22,11 +22,13 @@ Rails.application.routes.draw do
         post :confirm
       end
     end
+
+    member do
+      get :result
+    end
   end
 
-  resources :expert_requests, only: %i[show update] do
-
-  end
+  resources :expert_requests, only: %i[show update]
 
   resources :project_parameters, only: %i[show update] do
     member do

@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_project, only: :show
+  before_action :find_project, only: %i[show result]
 
   def index
     @projects = current_user.projects
@@ -18,7 +18,7 @@ class ProjectsController < ApplicationController
     when 'criteria_comparing_finished'
       redirect_to root_path # TODO: change
     when 'finished'
-      redirect_to root_path # TODO: change
+      redirect_to result_project_path(@project.id)
     end
   end
 
@@ -27,6 +27,13 @@ class ProjectsController < ApplicationController
     @project.save!
 
     redirect_to project_parameter_path(@project.id)
+  end
+
+  def result
+    @ms = @project.methodology_scores.ordered
+    @best_ms = @project.methodology_scores.ordered.first
+
+    render :show
   end
 
   private

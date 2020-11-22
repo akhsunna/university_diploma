@@ -1,19 +1,16 @@
 %h1= "\"#{@project.name}\" Results"
 
-- methodologies = Methodology.order('name')
-
 .project-results
   .result-methods
-    - methodologies.each_with_index do |method, i|
+    - @ms.each_with_index do |ms, i|
       = link_to '', class: i == 3 ? 'method-item active' : 'method-item' do
-        -# = "#{i + 1}. "
-        = method.name
-
+        = "#{i + 1}. "
+        = ms.methodology.name
 
   .result-detailed
     .method-title
-      %h2= methodologies[3].name
-      %h2 5.1
+      %h2= @best_ms.methodology.name
+      %h2= @best_ms.score.round(2)
 
     %table.projects-list
       %thead
