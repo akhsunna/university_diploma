@@ -1,14 +1,30 @@
 module Ahp
   class CalculateWeights
     def call(project)
+      @project = project
 
-      pids = project.parameters_comparisons.pluck(:parameter_a_id).uniq
-      count = pids.count
+      matrix = generate_matrix
+      matrix = normalized_matrix(matrix)
 
-      p 'PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP'
-      p pids
+      weights_hash = get_weights(matrix)
+      save_weights(weights_hash)
 
+      project.criteria_comparing_finished!
+    end
 
+    private
+
+    attr_reader :project
+
+    def pids
+      @pids ||= project.parameters_comparisons.pluck(:parameter_a_id).uniq
+    end
+
+    def count
+      @count ||= pids.count
+    end
+
+    def generate_matrix
       values_hash =
         project.parameters_comparisons.map do |pc|
           [
@@ -16,9 +32,6 @@ module Ahp
             pc.inversed ? 1.0 / pc.value : pc.value
           ]
         end.to_h
-
-      p 'HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH'
-      p values_hash
 
       array = []
 
@@ -29,36 +42,35 @@ module Ahp
           end
       end
 
+      array
+    end
+
+    def normalized_matrix(array)
       col_sum = Array.new(count, 0)
 
       count.times do |i|
         col_sum[i] = array.sum { |a| p a; a[i] }
       end
 
-      array.map! do |a|
+      array.map do |a|
         a.map.each_with_index do |e, i|
           e / col_sum[i].to_f
         end
       end
+    end
 
+    def get_weights(array)
       weights = array.map do |a|
         a.sum.to_f / a.size
       end
 
-      weights_hash = pids.zip(weights).to_h
+      pids.zip(weights).to_h
+    end
 
-      p '00000000000000000000000000000000000000000000000000000'
-      p '00000000000000000000000000000000000000000000000000000'
-      p '00000000000000000000000000000000000000000000000000000'
-      p weights_hash
-
-
+    def save_weights(weights_hash)
       project.parameter_values.each do |v|
         v.update_columns(weight: weights_hash[v.parameter_id])
       end
-
-
-      project.criteria_comparing_finished!
     end
   end
 end
