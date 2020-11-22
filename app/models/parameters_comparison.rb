@@ -14,7 +14,7 @@ class ParametersComparison < ApplicationRecord
     greater_than_or_equal_to: 1,
     less_than_or_equal_to: 9
   }
-  validates :parameter_a_id, uniqueness: { scope: :parameter_b_id }
+  validates :project_id, uniqueness: { scope: [:parameter_a_id, :parameter_b_id] }
 
   scope :for, ->(ida, idb) {
     where(parameter_a_id: ida, parameter_b_id: idb)
