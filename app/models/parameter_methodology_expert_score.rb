@@ -16,8 +16,6 @@ class ParameterMethodologyExpertScore < ApplicationRecord
     less_than_or_equal_to: 10
   }, allow_blank: true
 
-  after_save :update_total, if: ->{ confirmed? }
-
   scope :for_parameter, ->(parameter_id) { joins(:parameter_value).where(parameter_values: { parameter_id: parameter_id }) }
 
   def update_total!
@@ -27,11 +25,5 @@ class ParameterMethodologyExpertScore < ApplicationRecord
 
   def weighted_score
     score * (expert_weight || 1) / 10.0
-  end
-
-  private
-
-  def update_total
-    update_total!
   end
 end

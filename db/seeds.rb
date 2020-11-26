@@ -448,6 +448,6 @@ scores = [
 
 scores.each_with_index do |arr, i|
   arr.each_with_index do |score, j|
-    ParameterMethodologyExpertScore.create(methodology_id: i +  1, parameter_value_id: j + 1, score: score * 10, status: :confirmed, expert_weight: 1)
+    ParameterMethodologyExpertScore.create(methodology_id: i +  1, parameter_value_id: j + 1, score: score * 10, status: :confirmed, expert_weight: 1).update_total!
   end
 end
