@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_21_212600) do
+ActiveRecord::Schema.define(version: 2020_11_26_114012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,11 +18,11 @@ ActiveRecord::Schema.define(version: 2020_11_21_212600) do
   create_table "expert_requests", force: :cascade do |t|
     t.string "token"
     t.string "expert_name"
-    t.integer "expert_weight"
     t.bigint "methodology_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "status", default: 0
+    t.decimal "expert_weight"
     t.index ["methodology_id"], name: "index_expert_requests_on_methodology_id"
   end
 
@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 2020_11_21_212600) do
     t.bigint "methodology_id"
     t.bigint "expert_request_id"
     t.integer "status", default: 0
-    t.integer "score"
-    t.integer "expert_weight"
+    t.decimal "score"
+    t.decimal "expert_weight"
     t.index ["expert_request_id"], name: "index_parameter_methodology_expert_scores_on_expert_request_id"
     t.index ["methodology_id"], name: "index_parameter_methodology_expert_scores_on_methodology_id"
     t.index ["parameter_value_id"], name: "index_parameter_methodology_expert_scores_on_parameter_value_id"
@@ -53,15 +53,15 @@ ActiveRecord::Schema.define(version: 2020_11_21_212600) do
   create_table "parameter_values", force: :cascade do |t|
     t.bigint "parameter_id"
     t.string "value"
-    t.integer "default_weight"
+    t.decimal "default_weight"
     t.index ["parameter_id"], name: "index_parameter_values_on_parameter_id"
   end
 
   create_table "parameters", force: :cascade do |t|
     t.string "name"
-    t.integer "default_weight"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.decimal "default_weight"
   end
 
   create_table "parameters_comparisons", force: :cascade do |t|
