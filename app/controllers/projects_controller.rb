@@ -32,6 +32,7 @@ class ProjectsController < ApplicationController
   def result
     @ms = @project.methodology_scores.ordered
     @best_ms = @project.methodology_scores.ordered.first
+    @current_ms = @project.methodology_scores.find_by(id: params[:methodology_score_id]) || @best_ms
 
     render :show
   end

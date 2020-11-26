@@ -2,15 +2,14 @@
 
 .project-results
   .result-methods
-    - @ms.each_with_index do |ms, i|
-      = link_to '', class: i == 3 ? 'method-item active' : 'method-item' do
-        = "#{i + 1}. "
+    - @ms.each do |ms|
+      = link_to result_project_path(@project.id, methodology_score_id: ms.id), class: ms.id == @current_ms.id ? 'method-item active' : 'method-item' do
         = ms.methodology.name
 
   .result-detailed
     .method-title
-      %h2= @best_ms.methodology.name
-      %h2= @best_ms.score.round(2)
+      %h2= @current_ms.methodology.name
+      %h2= @current_ms.score.round(2)
 
     %table.projects-list
       %thead
@@ -22,12 +21,12 @@
           %th
             Score
       %tbody
-        - Parameter.order("RANDOM()").all.each do |parameter|
-          - s = parameter.default_weight / 10.0
-          %tr{class: s > 8 ? 'green' : (s > 4 ? 'yellow' : (s > 1.5 ? 'red' : 'super-red'))}
+        - @project.confirmed_parameter_values.each do |pv|
+          - s = @current_ms.methodology.get_score_of(pv.parameter_value_id)
+          %tr{class: s > 7.5 ? 'green' : (s >= 5 ? 'yellow' : (s >= 2.5 ? 'red' : 'super-red'))}
             %td
-              = parameter.name
+              = pv.parameter.name
             %td
-              = parameter.possible_values.sample.value
+              = pv.parameter_value.value
             %td
               = s
