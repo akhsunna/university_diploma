@@ -1,8 +1,14 @@
 .comparison
   .in-words
-    %span= @comparison.parameter_b.name
+    %span
+      %b= @comparison.parameter_b.name
+      %br
+      = @comparison.parameter_b_value
     %span#compare
-    %span= @comparison.parameter_a.name
+    %span
+      %b= @comparison.parameter_a.name
+      %br
+      = @comparison.parameter_a_value
 
   = form_tag confirm_project_parameters_comparison_path(id: @comparison.id) do
     .comparison-slider

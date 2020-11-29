@@ -58,4 +58,12 @@ class ParametersComparison < ApplicationRecord
       parameter_b: parameter_a
     )
   end
+
+  def parameter_a_value
+    project.parameter_values.find_by(parameter_id: parameter_a_id).parameter_value.value
+  end
+
+  def parameter_b_value
+    project.parameter_values.find_by(parameter_id: parameter_b_id).parameter_value.value
+  end
 end

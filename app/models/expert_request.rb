@@ -11,11 +11,11 @@ class ExpertRequest < ApplicationRecord
   has_many :scores, class_name: 'ParameterMethodologyExpertScore'
 
   validates :expert_weight, :expert_name, :token, presence: true
-  validates :expert_weight, numericality: {
-    only_integer: true,
-    greater_than_or_equal_to: 0,
-    less_than_or_equal_to: 10
-  }
+  # validates :expert_weight, numericality: {
+  #   only_integer: true,
+  #   greater_than_or_equal_to: 0,
+  #   less_than_or_equal_to: 10
+  # }
 
   before_validation :regenerate_token, on: :create, if: -> { token.blank? }
   after_create :create_records_for_scores

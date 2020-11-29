@@ -183,7 +183,7 @@ table.projects-list {
       color: #fff;
     }
 
-    &.criteria_comparing_finished, &.criteria_comparing_in_progress {
+    &.criteria_comparing_finished, &.criteria_comparing_in_progress, &.questionnaire_in_progress {
       background: #ffd556;
       color: #fff;
     }
@@ -217,6 +217,10 @@ table.projects-list {
     flex-flow: row;
     justify-content: space-between;
     margin: 20px 0;
+
+    span:not(#compare) {
+      max-width: 270px;
+    }
   }
 
   form {

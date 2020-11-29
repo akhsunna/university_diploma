@@ -3,13 +3,13 @@ class ProjectsController < ApplicationController
   before_action :find_project, only: %i[show result]
 
   def index
-    @projects = current_user.projects
+    @projects = current_user.projects.order(id: :desc)
     @project = Project.new
   end
 
   def show
     case @project.status
-    when 'questionnaire_in_progress'
+    when 'questionnaire_in_progress', 'created'
       redirect_to project_parameter_path(@project)
     when 'questionnaire_finished'
       redirect_to start_project_parameters_comparisons_path(project_id: @project.id)
