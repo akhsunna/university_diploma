@@ -18,6 +18,8 @@ module MethSelecting
         project.methodology_scores.find_or_initialize_by(methodology: methodology).update(weighted_sum_score: sum / n.to_f)
       end
 
+      ScoresByTopsis.new.call(project)
+
       project.finished!
     end
   end

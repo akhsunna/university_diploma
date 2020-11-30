@@ -5,6 +5,6 @@ class ProjectMethodologyScore < ApplicationRecord
   scope :ordered, -> { order(weighted_sum_score: :desc) }
 
   def score
-    weighted_sum_score
+    (weighted_sum_score + topsis_score) / 2.0
   end
 end
