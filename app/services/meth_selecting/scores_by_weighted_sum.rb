@@ -15,7 +15,7 @@ module MethSelecting
           sum += score * ppv.weight
         end
 
-        project.methodology_scores.create(methodology: methodology, weighted_sum_score: sum / n.to_f)
+        project.methodology_scores.find_or_initialize_by(methodology: methodology).update(weighted_sum_score: sum / n.to_f)
       end
 
       project.finished!

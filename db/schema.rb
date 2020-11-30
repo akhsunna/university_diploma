@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_114012) do
+ActiveRecord::Schema.define(version: 2020_11_30_001357) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_114012) do
     t.bigint "project_id"
     t.bigint "methodology_id"
     t.decimal "weighted_sum_score"
+    t.decimal "topsis_score"
     t.index ["methodology_id"], name: "index_project_methodology_scores_on_methodology_id"
     t.index ["project_id"], name: "index_project_methodology_scores_on_project_id"
   end

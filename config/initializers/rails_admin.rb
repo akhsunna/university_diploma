@@ -182,4 +182,13 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'ProjectMethodologyScore' do
+    weight 11
+    navigation_label 'Users'
+
+    list do
+      fields :id, :project, :methodology, :topsis_score, :weighted_sum_score
+    end
+  end
+
 end

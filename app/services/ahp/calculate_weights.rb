@@ -54,12 +54,12 @@ module Ahp
       col_sum = Array.new(count, 0)
 
       count.times do |i|
-        col_sum[i] = array.sum { |a| a[i] }
+        col_sum[i] = array.sum { |a| a[i] }.to_f
       end
 
       array.map do |a|
         a.map.each_with_index do |e, i|
-          e / col_sum[i].to_f
+          e / col_sum[i]
         end
       end
     end
