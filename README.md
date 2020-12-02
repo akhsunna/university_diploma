@@ -60,3 +60,8 @@ rails s
 ```
 
 5. Visit http://localhost:3000
+
+
+## Admin panel
+
+Visit http://localhost:3000/admin to see the admin panel
