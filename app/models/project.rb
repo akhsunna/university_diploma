@@ -44,6 +44,10 @@ class Project < ApplicationRecord
     @values_progress_percentage ||= (100 - (parameter_values.not_set.count / parameter_values.count.to_f) * 100.0).round(1)
   end
 
+  def comparison_progress_percentage
+    @comparison_progress_percentage ||= (100 - (parameters_comparisons.not_set.count / parameters_comparisons.count.to_f) * 100.0).round(1)
+  end
+
   private
 
   def create_records_for_parameter_values

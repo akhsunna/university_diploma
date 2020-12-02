@@ -1,4 +1,11 @@
 .comparison
+
+
+  .progress
+    %progress#progress{max: '100', value: @project.comparison_progress_percentage}
+    %span= "#{@project.comparison_progress_percentage}%"
+
+
   .in-words
     %span
       %b= @comparison.parameter_b.name
