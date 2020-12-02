@@ -166,7 +166,7 @@ RailsAdmin.config do |config|
     navigation_label 'Users'
 
     edit do
-      fields :project, :parameter, :parameter_value, :status
+      fields :project, :parameter, :parameter_value, :status, :weight
     end
   end
 

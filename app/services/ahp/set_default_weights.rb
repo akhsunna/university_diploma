@@ -3,7 +3,7 @@ module Ahp
     def call(project)
       project.parameters_comparisons.destroy_all
 
-      project.parameter_values.each do |v|
+      project.confirmed_parameter_values.each do |v|
         v.update_columns(weight: v.parameter_value.weight)
       end
 
