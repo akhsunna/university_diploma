@@ -1,6 +1,3 @@
 {
-  "scripts": {
-    "postdeploy": "bundle exec rake db:schema:load DISABLE_DATABASE_ENVIRONMENT_CHECK=1 db:seed"
-  },
   "addons": ["heroku-postgresql:hobby-dev", "heroku-redis:hobby-dev"]
 }
