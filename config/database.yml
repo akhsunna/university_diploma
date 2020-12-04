@@ -74,13 +74,7 @@ test:
 #
 #   DATABASE_URL="postgres://myuser:mypass@localhost/somedatabase"
 #
-# You can use this database configuration with:
-#
-#   production:
-#     url: <%= ENV['DATABASE_URL'] %>
-#
-production:
-  <<: *default
-  database: methodology_expert_system_production
-  username: methodology_expert_system
-  password: <%= ENV['METHODOLOGY_EXPERT_SYSTEM_DATABASE_PASSWORD'] %>
+ You can use this database configuration with:
+
+   production:
+     url: <%= ENV['DATABASE_URL'] %>
