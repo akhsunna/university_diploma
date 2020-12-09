@@ -11,6 +11,8 @@ class ProjectParametersController < ApplicationController
   def update
     @project_parameter_value.update(value_params.merge(status: :confirmed))
     redirect_after_save
+  rescue ActionController::ParameterMissing
+    redirect_to project_parameter_path(@project)
   end
 
   def skip

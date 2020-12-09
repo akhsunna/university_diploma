@@ -12,7 +12,7 @@
   <body>
     <%= render 'layouts/header' %>
     <div class="content">
-      <div class="content-container">
+      <div class="content-container <%= controller_name %>_controller <%= action_name %>_action">
         <%= yield %>
       </div>
     </div>

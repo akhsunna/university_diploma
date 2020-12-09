@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_001357) do
+ActiveRecord::Schema.define(version: 2020_12_09_133412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_001357) do
 
   create_table "methodologies", force: :cascade do |t|
     t.string "name"
+    t.text "description"
   end
 
   create_table "parameter_methodology_expert_scores", force: :cascade do |t|

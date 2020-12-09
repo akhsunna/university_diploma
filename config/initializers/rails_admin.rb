@@ -1,5 +1,11 @@
 RailsAdmin.config do |config|
 
+  config.authenticate_with do
+    authenticate_or_request_with_http_basic('Please authorize') do |username, password|
+      username == 'admin' && password == '123456789'
+    end
+  end
+
   ### Popular gems integration
 
   ## == Devise ==
@@ -44,7 +50,12 @@ RailsAdmin.config do |config|
     navigation_label 'Base'
 
     edit do
-      fields :name
+      field :name
+      field :description, :ck_editor
+    end
+
+    list do
+      fields :id, :name
     end
   end
 

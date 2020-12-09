@@ -72,6 +72,10 @@ body {
         text-transform: uppercase;
         color: #393b44;
       }
+
+      &.projects_controller.result_action {
+        max-width: 1000px;
+      }
     }
   }
 
@@ -432,12 +436,31 @@ h2 {
 
   .result-detailed {
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
 
     .method-title {
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
+
+      .scores {
+        font-size: 20px;
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+      }
+    }
+
+    .result-parameters {
+      overflow-y: auto;
+      max-height: calc(100vh - 340px);
+      margin: 15px 0;
+    }
+
+    .result-description {
+      overflow-y: auto;
+      max-height: calc(100vh - 340px);
+      margin: 15px 0;
     }
 
     table.projects-list {
@@ -481,4 +504,9 @@ h2 {
   }
 }
 
-
+.comparison-start {
+  margin: 50px 0 30px;
+  color: #2E2F30;
+  font-size: 20px;
+  text-align: center;
+}

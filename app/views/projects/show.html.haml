@@ -5,28 +5,41 @@
     - @ms.each do |ms|
       = link_to result_project_path(@project.id, methodology_score_id: ms.id), class: ms.id == @current_ms.id ? 'method-item active' : 'method-item' do
         = ms.methodology.name
+        = "(#{ms.score.round(2)})"
 
   .result-detailed
     .method-title
       %h2= @current_ms.methodology.name
-      %h2= @current_ms.score.round(2)
+      .scores
+        %div
+          Weighted Sum
+          = @current_ms.weighted_sum_score.round(2)
+        %div
+          TOPSIS
+          = @current_ms.topsis_score.round(2)
 
-    %table.projects-list
-      %thead
-        %tr
-          %th
-            Parameter
-          %th
-            Value
-          %th
-            Score
-      %tbody
-        - @project.confirmed_parameter_values.each do |pv|
-          - s = @current_ms.methodology.get_score_of(pv.parameter_value_id)
-          %tr{class: s > 7.5 ? 'green' : (s >= 5 ? 'yellow' : (s >= 2.5 ? 'red' : 'super-red'))}
-            %td
-              = pv.parameter.name
-            %td
-              = pv.parameter_value.value
-            %td
-              = s
+    .result-parameters
+      %table.projects-list
+        %thead
+          %tr
+            %th
+              Parameter
+            %th
+              Value
+            %th
+              Score
+        %tbody
+          - @project.confirmed_parameter_values.ordered.each do |pv|
+            - s = @current_ms.methodology.get_score_of(pv.parameter_value_id)
+            %tr{class: s > 7.5 ? 'green' : (s >= 5 ? 'yellow' : (s >= 2.5 ? 'red' : 'super-red'))}
+              %td
+                = pv.parameter.name
+              %td
+                = pv.parameter_value.value
+              %td
+                = s
+
+    - if (description = @current_ms.methodology.description)
+      .result-description
+        %h2 Methodology details
+        = description.html_safe

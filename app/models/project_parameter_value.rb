@@ -8,4 +8,6 @@ class ProjectParameterValue < ApplicationRecord
   belongs_to :project
   belongs_to :parameter
   belongs_to :parameter_value, optional: true
+
+  scope :ordered, -> { order(weight: :desc) }
 end
