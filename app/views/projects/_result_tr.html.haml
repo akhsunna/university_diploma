@@ -1,0 +1,9 @@
+- s = methodology.get_score_of(pv.parameter_value_id)
+%tr{class: s > 7.5 ? 'green' : (s >= 5 ? 'yellow' : (s >= 2.5 ? 'red' : 'super-red'))}
+  %td
+    = pv.parameter.name
+  %td
+    .parameter-value
+      = select_tag :test, options_from_collection_for_select(pv.parameter.possible_values, 'id', 'short_value', pv.parameter_value.id)
+  %td
+    = s

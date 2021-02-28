@@ -19,4 +19,8 @@ class ParameterValue < ApplicationRecord
   def name
     value
   end
+
+  def short_value
+    value.truncate(35, omission: '...')
+  end
 end
