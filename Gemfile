@@ -54,4 +54,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'awesome_print'
+gem 'caxlsx'
+gem 'caxlsx_rails'
 gem 'rails_admin'

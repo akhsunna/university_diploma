@@ -1,0 +1,20 @@
+wb = xlsx_package.workbook
+Project.find_each do |project|
+  wb.add_worksheet(name: project.name) do |sheet|
+    sheet.add_row [project.name]
+    sheet.add_row [
+      'Methodology',
+      'Weighted Sum',
+      'TOPSIS',
+      'AVG'
+    ]
+    project.methodology_scores.ordered.each do |ms|
+      sheet.add_row [
+        ms.methodology.name,
+        ms.weighted_sum_score.round(2),
+        ms.topsis_score.round(2),
+        ms.score.round(2)
+      ]
+    end
+  end
+end

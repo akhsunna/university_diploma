@@ -25,6 +25,10 @@ Rails.application.routes.draw do
 
     member do
       get :result
+      get :export
+    end
+    collection do
+      get :export_all
     end
   end
 

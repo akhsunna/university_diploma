@@ -1,5 +1,8 @@
 %h1= "\"#{@project.name}\" Results"
 
+.export
+  = link_to 'Export', export_project_path(@project.id, format: :xlsx), data: {turbolinks: false}
+
 .project-results
   .result-methods
     - @ms.each do |ms|

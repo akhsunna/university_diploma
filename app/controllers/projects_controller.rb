@@ -1,6 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_project, only: %i[show result]
+  before_action :find_project, only: %i[show result export]
 
   def index
     @projects = current_user.projects.order(id: :desc)
@@ -35,6 +35,23 @@ class ProjectsController < ApplicationController
     @current_ms = @project.methodology_scores.find_by(id: params[:methodology_score_id]) || @best_ms
 
     render :show
+  end
+
+  def export
+    if @project.finished?
+
+      @methodology_scores = @project.methodology_scores.ordered
+
+      respond_to do |format|
+        format.xlsx { render xlsx: 'export', filename: "Results for #{@project.name}.xlsx" }
+      end
+    else
+      head :bad_request
+    end
+  end
+
+  def export_all
+
   end
 
   private

@@ -1,0 +1,31 @@
+wb = xlsx_package.workbook
+
+@methodology_scores.each do |ms|
+  wb.add_worksheet(name: "#{ms.methodology.name} (#{ms.score.round(2)})") do |sheet|
+    sheet.add_row [
+      "Methodology name: #{ms.methodology.name} (#{ms.score.round(2)})"
+    ]
+    sheet.add_row [
+      "Score with Weighted Sum: #{ms.weighted_sum_score.round(2)}"
+    ]
+    sheet.add_row [
+      "Score with TOPSIS: #{ms.topsis_score.round(2)}"
+    ]
+    sheet.add_row [
+      "Avg score: #{ms.score.round(2)}"
+    ]
+    sheet.add_row []
+    sheet.add_row [
+      'Parameter',
+      'Value',
+      'Score'
+    ]
+    @project.confirmed_parameter_values.ordered.each do |pv|
+      sheet.add_row [
+        pv.parameter.name,
+        pv.parameter_value.value,
+        ms.methodology.get_score_of(pv.parameter_value_id)
+      ]
+    end
+  end
+end
